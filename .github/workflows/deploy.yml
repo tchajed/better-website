@@ -31,7 +31,7 @@ jobs:
   # Deployment job
   deploy:
     needs: build
-    if: github.ref == "refs/heads/main"
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
