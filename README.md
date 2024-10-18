@@ -1,6 +1,8 @@
 # Improving your website
 
-If your website has no styling, please add this:
+[Demo](https://tchajed.github.io/better-website/)
+
+If your website has no styling, please add this to your `<head>` element:
 
 ```html
 <style>
