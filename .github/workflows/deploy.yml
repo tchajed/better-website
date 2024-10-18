@@ -1,0 +1,45 @@
+name: build & deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# Set up permissions on GITHUB_TOKEN for pages deployment
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build static files
+        id: build
+        run: |
+          mkdir dist/
+          cp index.html dist/
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        with:
+          path: dist/
+
+  # Deployment job
+  deploy:
+    needs: build
+    if: github.ref == "refs/heads/main"
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
