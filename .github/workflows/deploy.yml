@@ -9,7 +9,7 @@ on:
 # Set up permissions on GITHUB_TOKEN for pages deployment
 permissions:
   contents: read
-  packages: write
+  pages: write
   id-token: write
 
 jobs:
